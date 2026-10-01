@@ -2,36 +2,59 @@
 
 let mapGrid;
 let offsetX, offsetY;
+let agent;
+let food;
+let visualizer;
 
 function setup() {
-	// A tela recebe o tamanho total da janela do navegador
 	createCanvas(windowWidth, windowHeight);
 	
-	// Calcula o recuo (offset) em X e Y para que o mapa de 1000x500 fique no centro da tela
+	// Calculates the offset in X and Y so that the 1000x500 map is drawn centered
 	offsetX = (windowWidth - MAP_WIDTH) / 2;
 	offsetY = (windowHeight - MAP_HEIGHT) / 2;
 	
-	// Instancia e gera a matriz
+	// Generates the environment
 	mapGrid = new Grid(COLS, ROWS, TILE_SIZE);
 	mapGrid.generate();
+	food = new Food(mapGrid);
+	agent = new Agent(mapGrid);
+	agent.setGoal(food);
+	visualizer = new SearchVisualizer();
 }
 
 function draw() {
-	// Define a cor de fundo de todo o canvas (página) para preto
 	background(0);
-	
-	// Desenha o fundo branco do retângulo central onde ficará o mapa
-	fill(255); // Fundo branco
-	noStroke(); // Remove as bordas do retângulo de fundo
+	fill(255);
+	//noStroke();
+	stroke(255);
+	strokeWeight(5);
 	rect(offsetX, offsetY, MAP_WIDTH, MAP_HEIGHT);
-	
-	// Pede ao gerenciador do Grid para desenhar as células do mapa por cima
-	mapGrid.show(offsetX, offsetY);
-	}
 
-	// Recalcula o centro dinamicamente caso o usuário redimensione o navegador
-	function windowResized() {
+	mapGrid.show(offsetX, offsetY);       // 1. Map
+	visualizer.show(offsetX, offsetY);    // 2. Search
+	food.show(offsetX, offsetY);          // 3. Food
+	agent.show(offsetX, offsetY);         // 4. Agent
+}
+
+// Recalculates the center dinamically
+function windowResized() {
 	resizeCanvas(windowWidth, windowHeight);
 	offsetX = (windowWidth - MAP_WIDTH) / 2;
 	offsetY = (windowHeight - MAP_HEIGHT) / 2;
+}
+
+// Resets all the environment
+function resetEnvironment() {
+  mapGrid.generate();		// 1. New map
+  food.spawn();				// 2. New position for food
+  agent.spawn();			// 3. New position for agent
+  agent.setGoal(food);		// 4. New goal for agent to achieve
+  visualizer.clear();		// 5. Past search cleared
+}
+
+// Calls the reset once "r" is pressed
+function keyPressed() {
+  if (key === 'r' || key === 'R') {
+    resetEnvironment();
+  }
 }

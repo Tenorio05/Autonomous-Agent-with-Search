@@ -13,8 +13,9 @@ class Cell {
     // Receive offsets to draw itself based on its position on map
     show(offsetX, offsetY) {
         fill(this.terrain.color);
-        stroke(150);
-        strokeWeight(2);
+        noStroke();
+        //stroke(200);
+        //strokeWeight(2);
         
         // Draws cell square considering the map offset on screen
         rect(this.x + offsetX, this.y + offsetY, this.w, this.w);
