@@ -54,9 +54,6 @@ function draw() {
 	visualizer.show(offsetX, offsetY);    // 2. Search
     food.show(offsetX, offsetY);          // 3. Food
 	agent.show(offsetX, offsetY);         // 4. Agent
-
-	
-		
 }
 
 // Recalculates the center dinamically
@@ -93,5 +90,9 @@ function keyPressed() {
   if (key === 'g' || key === 'G') {
     visualizer.clear();
     searchGen = greedy(agent.cell, agent.goal, mapGrid);
+  }
+  if (key === 'a' || key === 'A') {
+	visualizer.clear();
+	searchGen = aStar(agent.cell, agent.goal, mapGrid);
   }
 }
