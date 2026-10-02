@@ -90,4 +90,8 @@ function keyPressed() {
 	visualizer.clear();
 	searchGen = dfs(agent.cell, agent.goal, mapGrid);
   }
+  if (key === 'g' || key === 'G') {
+    visualizer.clear();
+    searchGen = greedy(agent.cell, agent.goal, mapGrid);
+  }
 }
