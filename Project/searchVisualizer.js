@@ -16,31 +16,33 @@ class SearchVisualizer {
 
     // Desenha as etapas intermediárias da busca de forma destacada
     show(offsetX, offsetY) {
-        // Visitados (Vermelho transparente)
-        fill(255, 0, 0, 100); 
+        // Visitados: véu escuro azulado, o terreno continua visível por baixo
+        fill(10, 10, 40, 110);
         noStroke();
         for (let cell of this.visited) {
             rect(cell.x + offsetX, cell.y + offsetY, cell.w, cell.w);
         }
 
-        // Fronteira (Verde transparente)
-        fill(0, 255, 0, 100);
-        noStroke();
+        // Fronteira: só contorno amarelo, sem preenchimento
+        noFill();
+        stroke(10, 255, 10);
+        strokeWeight(3);
         for (let cell of this.frontier) {
-            rect(cell.x + offsetX, cell.y + offsetY, cell.w, cell.w);
+            rect(cell.x + offsetX + 3, cell.y + offsetY + 3, cell.w - 6, cell.w - 6);
         }
 
-        // Caminho Final (Linha amarela contínua)
+        // Caminho final: linha branca grossa por baixo, laranja por cima
         if (this.path.length > 0) {
             noFill();
-            stroke(255, 255, 0);
-            strokeWeight(4);
-            beginShape();
-            for (let cell of this.path) {
-                vertex(cell.x + offsetX + cell.w / 2, cell.y + offsetY + cell.w / 2);
+            for (let [col, weight] of [[color(255), 9], [color(255, 180, 0), 5]]) {
+                stroke(col);
+                strokeWeight(weight);
+                beginShape();
+                for (let cell of this.path) {
+                    vertex(cell.x + offsetX + cell.w / 2, cell.y + offsetY + cell.w / 2);
+                }
+                endShape();
             }
-            endShape();
-            strokeWeight(1); 
         }
     }
 }
