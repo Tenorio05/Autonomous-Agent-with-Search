@@ -95,4 +95,8 @@ function keyPressed() {
 	visualizer.clear();
 	searchGen = aStar(agent.cell, agent.goal, mapGrid);
   }
+  if (key === 'u' || key === 'U') {
+	visualizer.clear();
+	searchGen = dijkstra(agent.cell, agent.goal, mapGrid);
+  }
 }
