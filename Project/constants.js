@@ -1,9 +1,9 @@
 // constants.js
 
 // Map and Grid dimensions
-const MAP_WIDTH = 1000;
-const MAP_HEIGHT = 500;
-const TILE_SIZE = 50; 
+const MAP_WIDTH = 600;
+const MAP_HEIGHT = 600;
+const TILE_SIZE = 30; 
 const COLS = MAP_WIDTH / TILE_SIZE; 
 const ROWS = MAP_HEIGHT / TILE_SIZE; 
 
