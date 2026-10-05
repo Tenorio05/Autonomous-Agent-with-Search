@@ -86,7 +86,7 @@ function* dfs(start, goal, grid) {
 
 // Heuristica: Manhattan distance (o mapa só possui 4 direções possíveis)
 function heuristic(a, b) {
-    return abs(a.i - b.i) + abs(a.j - b.j);
+    return 10*(abs(a.i - b.i) + abs(a.j - b.j));
 }
 
 // Guloso (Best First)
