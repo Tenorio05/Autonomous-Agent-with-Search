@@ -14,3 +14,12 @@ const TERRAIN = {
   MUD: { type: 'MUD', cost: 50, color: '#8B4513' },                 // Mid cost (mud)
   WATER: { type: 'WATER', cost: 100, color: '#4682B4' }             // High cost (water)
 };
+
+// List with all search algorithms
+const ALGORITHMS = [
+  { key: 'B', name: "Busca em Largura" },
+  { key: 'D', name: "Busca em Profundidade" },
+  { key: 'G', name: "Busca Gulosa" },
+  { key: 'A', name: "Algoritmo A*" },
+  { key: 'U', name: "Custo Uniforme" }
+	];
