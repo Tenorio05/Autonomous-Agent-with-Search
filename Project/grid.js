@@ -8,16 +8,30 @@ class Grid {
         this.matrix = [];
     }
 
-    // Fills the grid randomly
+    // Fills the grid with perlin noise
     generate() {
-        const terrainTypes = [TERRAIN.OBSTACLE, TERRAIN.SAND, TERRAIN.MUD, TERRAIN.WATER];
+        let noiseScale = 0.20;
         
         for (let i = 0; i < this.cols; i++) {
             this.matrix[i] = [];
             for (let j = 0; j < this.rows; j++) {
-                // Gets randomly a terrain type
-                let randomTerrain = random(terrainTypes);
-                this.matrix[i][j] = new Cell(i, j, this.w, randomTerrain);
+                
+                if (random() < 0.20) {
+                    this.matrix[i][j] = new Cell(i, j, this.w, TERRAIN.OBSTACLE);
+                } else {
+                    let noiseVal = noise(i * noiseScale, j * noiseScale);
+                    let selectedTerrain;
+
+                    if (noiseVal < 0.45) {
+                        selectedTerrain = TERRAIN.SAND;
+                    } else if (noiseVal < 0.65) {
+                        selectedTerrain = TERRAIN.MUD;
+                    } else {
+                        selectedTerrain = TERRAIN.WATER;
+                    }
+
+                    this.matrix[i][j] = new Cell(i, j, this.w, selectedTerrain);
+                }
             }
         }
     }
